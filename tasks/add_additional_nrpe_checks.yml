@@ -6,7 +6,7 @@
     version: "{{ item.version }}"
     force: "{{ item.force |default(True) }}"
     verify_commit: "{{ item.verify_commit | default(False) }}"
-  with_items: "{{ nrpe_git_repos }}"
+  with_items: "{{ additional_nrpe_checks }}"
   when: item.type == 'git'
 
 - name: Default nrpe command argument when nagios_dont_blame is true
@@ -22,5 +22,5 @@
   set_fact:
     git_nrpe_checks: "{{ git_nrpe_checks |default([]) }} + [ 'command[{{ item[1].command |default( item[1].script_name )}}]={{ item[0].script_path }}{{ item[1].script_name |default( item[1].command ) }} {{ item[1].arguments |default( default_argument  ) }}' ]"
   with_subelements:
-     - "{{ nrpe_git_repos }}"
+     - "{{ additional_nrpe_checks }}"
      - commands

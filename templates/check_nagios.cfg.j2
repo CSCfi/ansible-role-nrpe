@@ -3,3 +3,9 @@
 command[{{ i.command }}]={{ i.path }} {{ i.arguments }}
 {% endfor %}
 {% endif %}
+
+{%- if git_nrpe_checks is defined %}
+{% for line in git_nrpe_checks %}
+{{ line }}
+{% endfor %}
+{% endif %}

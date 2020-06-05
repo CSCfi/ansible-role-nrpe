@@ -9,16 +9,16 @@
   with_items: "{{ additional_nrpe_checks }}"
   when: item.type == 'git'
 
-- name: Default nrpe command argument when nagios_dont_blame is true
+- name: Set default nrpe command argument when nagios_dont_blame is true
   set_fact:
     default_argument: "$ARG1$"
   when: nagios_dont_blame == true
-- name: Default nrpe command argument when nagios_dont_blame is false
+- name: Set default nrpe command argument when nagios_dont_blame is false
   set_fact:
     default_argument: ""
   when: nagios_dont_blame == false
 
-- name: Create check file
+- name: Genereate facts for additional nrpe checks
   set_fact:
      nrpe_checks: "{{ nrpe_checks |default([]) + [ {
        'command': item[1].command |default( item[1].script_name ),

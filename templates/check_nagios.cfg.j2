@@ -4,7 +4,7 @@ command[{{ i.command }}]={{ i.path }} {{ i.arguments }}
 {% endfor %}
 {% endif %}
 
-{%- if git_nrpe_checks is defined %}
+{%- if nrpe_checks is defined %}
 {% for i in nrpe_checks %}
 command[{{ i.command }}]={{ i.path }} {{ i.arguments }}
 {% endfor %}

@@ -15,6 +15,7 @@
     setype: "{{ item.setype }}"
     state: "{{ item.state }}"
   with_items: "{{ additional_nrpe_checks }}"
+  when: item.setype is defined
   nofity: SELinux context changed
 
 - name: Genereate facts for additional nrpe checks

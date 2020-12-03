@@ -4,6 +4,7 @@
  - name: SELinux context changed
    command: "restorecon {{ item.dest }}"
    with_items: "{{ additional_nrpe_checks }}"
+   when: item.setype is defined
 
  - name: restart nrpe
    service: name=nrpe state=restarted

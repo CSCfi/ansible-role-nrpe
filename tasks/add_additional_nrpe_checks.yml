@@ -11,12 +11,13 @@
 
 - name: set SELinux contexts for checks
   sefcontext:
-    target: "{{ item.dest }}"
-    setype: "{{ item.setype }}"
-    state: "{{ item.state }}"
-  with_items: "{{ additional_nrpe_checks }}"
-  when: item.setype is defined
-  nofity: SELinux context changed
+    target: "{{ item[0].script_path + item[1].script_name }}"
+    setype: "{{ item[1].setype }}"
+  with_subelements: 
+    - "{{ additional_nrpe_checks }}"
+    - commands
+  when: item[1].setype is defined
+  notify: SELinux context changed
 
 - name: Genereate facts for additional nrpe checks
   set_fact:

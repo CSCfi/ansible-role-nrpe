@@ -3,9 +3,7 @@
 #
 - name: SELinux context changed
   command: "restorecon {{ item[0].script_path + item[1].script_name }}"
-  with_subelements:
-    - "{{ additional_nrpe_checks }}"
-    - commands
+  loop: "{{ additional_nrpe_checks|subelements('commands') }}"
   when: item[1].setype is defined
 
 - name: restart nrpe
